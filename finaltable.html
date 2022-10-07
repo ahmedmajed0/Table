@@ -1,0 +1,499 @@
+
+<!doctype html>
+<html>
+
+
+
+
+
+<head>
+    
+    <input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR">
+    <!-- !!!!AJAX!!!! --><script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    
+
+    
+	<title>BookBreakers | Arbitrage</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	
+	
+	<link rel="shortcut icon" type="image/png" href="http://www.bookbreakers.us:8080/static-main/images/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/homepage.css">
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/dataTables.bootstrap4.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap-select.min.css">-->
+	
+	<!-- BOOTSTRAP 5 
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap5/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap5/bootstrap-utilities.min.css">
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap5/bootstrap-grid.min.css">
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/bootstrap5/bootstrap-reboot.min.css">-->
+		
+
+
+
+	<!-- MAIN CSS FILE -->
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/SportsMain.css">	
+
+	<script src="http://www.bookbreakers.us:8080/static-main/js/jquery-3.5.1.slim.min.js"></script>
+	
+	<!-- BOOK BREAKERS JS TOOLS LOADED IN HEADER FOR USE IN OTHER FILES-->
+	<script src="http://www.bookbreakers.us:8080/static-main/js/optional/BookBreakersTools.js"></script>
+    
+	<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/admin-panel.css">
+    <link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/message-bar.css">
+    <link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/bet-bar.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+
+    <!-- my links -->
+    <link href="mystyle.css" rel="stylesheet" />
+
+</head>
+
+<body class="sb-nav-fixed sb-sidenav-toggled ms-nav-fixed ms-sidenav-toggled bt-nav-fixed bt-sidenav-toggled" style="background-color: rgb(255, 255, 255);">
+
+
+<style>
+	.nav-font{
+		font-size:calc(7px + .5vw) !important;
+	}
+</style>
+<nav class="sb-topnav navbar navbar-expand navbar-custom navbar-dark bg-dark fixed-top">
+	<a class="navbar-brand nav-font" href="\" style="width:calc(150px + 5vw);">&nbsp;&nbsp;&nbsp;Book Breakers (Beta)</a>
+	
+	
+	<div class="collapse navbar-collapse" id="navbarsExample06">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<button onclick="toggleAdminPanel(false)" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 nav-font" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>	&nbsp;&nbsp;&nbsp;&nbsp;
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle nav-font" href="#" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Betting Tools</a>
+				<div class="dropdown-menu" aria-labelledby="">
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/tools/odds-conversion">Odds Converter</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/tools/vig-free">Vig Free Line Calculator</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/tools/value-calc">Value Calculator</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/tools/kelly-calc">Kelly Criterion Calculator</a>
+					
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle nav-font" href="#" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
+				<div class="dropdown-menu" aria-labelledby="">
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/info/winning">How is it possible to win at sports betting?</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/info/vigorish">What is Vig (and Vig Free Lines)?</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/info/bet-types">Winning Bet Types</a>
+					<a class="dropdown-item" href="http://www.bookbreakers.us:8080/info/kelly-criterion">Kelly Criterion</a>
+				</div>
+			</li>
+		
+		</ul>
+		<ul class="navbar-nav mc-auto">
+    <li id="connection-status" class="nav-item blinking" style="display: none;">
+        <a class="my-2 my-md-0 nav-link" href="" style="height: 35px;">Disconnected
+            <span class="fa-stack" style="vertical-align: middle;">
+                <i style="color:rgb(201, 201, 201);height:35px;width:35px" class="fa fa-wifi fa-stack-2x"></i>
+                <i style="color:red;height:20px;width:35px" class="fas fa-exclamation  fa-stack-1x fa-lg"></i>
+            </span></a>
+    </li>
+</ul>
+<ul class="navbar-nav ml-auto">
+    
+    
+    <li class="nav-item">
+        <a class="my-2 my-md-0 nav-link nav-font" href="http://www.bookbreakers.us:8080/dashboard">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <button onclick="toggleMessages(false)" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 my-2 my-md-0 nav-link nav-font" style="margin:0px !important" id="messageToggle" href="#!">Messages <i class="fas fa-comments fa-lg"></i></button>	
+    </li>
+        
+        <li class="nav-item">
+            <a class="my-2 my-md-0 nav-link nav-font" href="http://www.bookbreakers.us:8080/admin/">Admin</a>
+        </li>
+        
+    <li class="nav-item">
+        <a class="my-2 my-md-0 nav-link nav-font" href="http://www.bookbreakers.us:8080/dashboard">User: Ace535</a>
+    </li>
+    <li class="nav-item">
+        <a class="my-2 my-md-0 nav-link nav-font" href="http://www.bookbreakers.us:8080/logout/">Logout</a>
+    </li>
+    
+</ul>
+	</div>
+	
+</nav>
+
+
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Dashboard</div>
+                    <!-- i types: fa-tachometer-alt, fa-table, fa-chart-area, fa-angle-down, fa-columns, fa-book-open, fa-user  -->
+                    <!--<a class="nav-link" href="http://www.bookbreakers.us:8080/dashboard">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Home
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/games-list">
+                        <div class="sb-nav-link-icon"><i class="fa fa-globe"></i></div>
+                        Upcoming Games
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/bet-history">
+                        <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
+                        Bet History
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/profile?user=1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div>
+                        My Profile
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/profile-list">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        User Profiles
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/value-bets">
+                        <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign fa-lg"></i></div>
+                        &nbsp;Value Bets
+                    </a>-->
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/arbitrage">
+                        <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign fa-lg"></i></div>
+                        &nbsp;Arbitrage Bet Pairs
+                    </a>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/low-hold">
+                        <div class="sb-nav-link-icon"><i class="fas fa-smile"></i></div>
+                        Low Hold Bet Pairs
+                    </a>
+                    <!--<a class="nav-link" href="http://www.bookbreakers.us:8080/arb-bets">
+                        <div class="sb-nav-link-icon"><i class="fas fa-money-bill"></i></div>
+                        Value Bets
+                    </a>-->
+
+
+                    <div class="sb-sidenav-menu-heading">Sports</div>
+                   
+                    
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Baseball" aria-expanded="false" aria-controls="Baseball">
+            <div class="sb-nav-link-icon"><i class="fas fa-baseball-ball"></i></div>
+            Baseball
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="Baseball" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages"><a class="nav-link" href="http://www.bookbreakers.us:8080/sports?league=MLB"><div class="sb-nav-link-icon"></div>MLB (27)</a>
+            </nav>
+        </div>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Basketball" aria-expanded="false" aria-controls="Basketball">
+            <div class="sb-nav-link-icon"><i class="fas fa-basketball-ball"></i></div>
+            Basketball
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="Basketball" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages"><a class="nav-link" href="http://www.bookbreakers.us:8080/sports?league=NBA"><div class="sb-nav-link-icon"></div>NBA (0)</a>
+            </nav>
+        </div>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Football" aria-expanded="false" aria-controls="Football">
+            <div class="sb-nav-link-icon"><i class="fas fa-football-ball"></i></div>
+            Football
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="Football" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages"><a class="nav-link" href="http://www.bookbreakers.us:8080/sports?league=NFL"><div class="sb-nav-link-icon"></div>NFL (0)</a>
+            </nav>
+        </div>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Hockey" aria-expanded="false" aria-controls="Hockey">
+            <div class="sb-nav-link-icon"><i class="fas fa-hockey-puck"></i></div>
+            Hockey
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="Hockey" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages"><a class="nav-link" href="http://www.bookbreakers.us:8080/sports?league=NHL"><div class="sb-nav-link-icon"></div>NHL (0)</a>
+            </nav>
+        </div>
+
+
+                    <div class="sb-sidenav-menu-heading">Preferences</div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sites" aria-expanded="false" aria-controls="sites">
+                        <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
+                        My Betting Sites
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <form method="POST">
+                        <div class="collapse" id="sites" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR"> 
+                                <div class="nav-link" style="padding:0px"><input type="checkbox" name="1" onchange="this.form.submit()"><a class="nav-link" href="https://www.pinnacle.com/en/" target="_blank" style="padding-top:0px;padding-bottom:0px">Pinnacle</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="2" onchange="this.form.submit()"><a class="nav-link" href="https://engine.mybookie.ag/sports/home" target="_blank" style="padding-top:0px;padding-bottom:0px">MyBookie</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="3" checked onchange="this.form.submit()"><a class="nav-link" href="https://www.bovada.lv/" target="_blank" style="padding-top:0px;padding-bottom:0px">Bovada</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="4" checked onchange="this.form.submit()"><a class="nav-link" href="https://www.betonline.ag/" target="_blank" style="padding-top:0px;padding-bottom:0px">BetOnline</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="5" checked onchange="this.form.submit()"><a class="nav-link" href="https://sports.everygame.eu" target="_blank" style="padding-top:0px;padding-bottom:0px">EveryGame</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="6" checked onchange="this.form.submit()"><a class="nav-link" href="https://sportsbook.fanduel.com/" target="_blank" style="padding-top:0px;padding-bottom:0px">FanDuel</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="7" checked onchange="this.form.submit()"><a class="nav-link" href="https://sportsbook.draftkings.com/featured" target="_blank" style="padding-top:0px;padding-bottom:0px">DraftKings</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="8" checked onchange="this.form.submit()"><a class="nav-link" href="https://sports.co.betmgm.com/en/sports" target="_blank" style="padding-top:0px;padding-bottom:0px">BetMGM</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="9" onchange="this.form.submit()"><a class="nav-link" href="https://www.williamhill.com/us/co/bet/" target="_blank" style="padding-top:0px;padding-bottom:0px">Caesars</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="10" onchange="this.form.submit()"><a class="nav-link" href="https://ct.playsugarhouse.com/?page=sportsbook&feed=featured#home" target="_blank" style="padding-top:0px;padding-bottom:0px">Sugarhouse</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="11" onchange="this.form.submit()"><a class="nav-link" href="https://co.wynnbet.com/sportsbook" target="_blank" style="padding-top:0px;padding-bottom:0px">WynnBet</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="12" onchange="this.form.submit()"><a class="nav-link" href="https://co.betfredsports.com/sports/" target="_blank" style="padding-top:0px;padding-bottom:0px">BetFred</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="13" onchange="this.form.submit()"><a class="nav-link" href="https://co.playupusa.com/en-us/home" target="_blank" style="padding-top:0px;padding-bottom:0px">PlayUp</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="14" onchange="this.form.submit()"><a class="nav-link" href="https://co.superbook.com/sports" target="_blank" style="padding-top:0px;padding-bottom:0px">SuperBook</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="15" onchange="this.form.submit()"><a class="nav-link" href="https://co.pointsbet.com/" target="_blank" style="padding-top:0px;padding-bottom:0px">PointsBet</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="16" onchange="this.form.submit()"><a class="nav-link" href="https://co.betway.com/" target="_blank" style="padding-top:0px;padding-bottom:0px">Betway</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="17" onchange="this.form.submit()"><a class="nav-link" href="https://co.foxbet.com/#/" target="_blank" style="padding-top:0px;padding-bottom:0px">FoxBet</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="18" onchange="this.form.submit()"><a class="nav-link" href="https://www.barstoolsportsbook.com" target="_blank" style="padding-top:0px;padding-bottom:0px">Barstool</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="19" onchange="this.form.submit()"><a class="nav-link" href="https://www.sisportsbook.com" target="_blank" style="padding-top:0px;padding-bottom:0px">SIBook</a></div><div class="nav-link" style="padding:0px"><input type="checkbox" name="20" onchange="this.form.submit()"><a class="nav-link" href="https://co.ballybet.com/sports/home.sbk" target="_blank" style="padding-top:0px;padding-bottom:0px">BallyBet</a></div>
+                                <input type="hidden" name="my_sites_form" value="True">
+                            </nav>
+                        </div>
+                    </form>
+                    
+                    
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#odds_type" aria-expanded="false" aria-controls="odds_type">
+                        <div class="sb-nav-link-icon"><i class="fas fa-flag-usa"></i></div>
+                        Odds Type
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <form method="POST">
+                        <div class="collapse" id="odds_type" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR"> 
+                                <div class="nav-link" style="padding:0px"><input type="radio" name="odds_type" onchange="this.form.submit()" id="Am" value="Am" checked><label for="Am" class="nav-link" style="height:18px;margin-top:5px">American</label></div>
+                                <div class="nav-link" style="padding:0px"><input type="radio" name="odds_type" onchange="this.form.submit()" id="Dec" value="Dec" ><label for="Dec" class="nav-link" style="height:18px;margin-top:5px">Decimal</label></div>
+                                <input type="hidden" name="odds_type_form" value="True">
+                            </nav>
+                        </div>
+                    </form>
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#estimation_methods" aria-expanded="false" aria-controls="estimation_methods">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calculator"></i></div>
+                        Estimation Methods
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <form method="POST">
+                        <div class="collapse" id="estimation_methods" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR"> 
+                                <div class="nav-link" style="padding:0px"><input type="checkbox" name="1" checked onchange="this.form.submit()"><a class="nav-link" href="#" target="" style="padding-top:0px;padding-bottom:0px;font-size:12px">Vig Free Avg</a></div>
+                                <input type="hidden" name="estimation_methods_form" value="True">
+                            </nav>
+                        </div>
+                    </form>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#primary_estimation" aria-expanded="false" aria-controls="primary_estimation">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calculator"></i></div>
+                        Primary Estimation
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <form method="POST">
+                        <div class="collapse" id="primary_estimation" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR"> 
+                                <div class="nav-link" style="padding:0px"><input type="radio" name="p_est" onchange="this.form.submit()" value="0" checked><a class="nav-link" href="#" target="" style="padding-top:0px;padding-bottom:0px;font-size:12px">None</a></div><div class="nav-link" style="padding:0px"><input type="radio" name="p_est" onchange="this.form.submit()" value="1" checked><a class="nav-link" href="#" target="" style="padding-top:0px;padding-bottom:0px;font-size:12px">Vig Free Avg</a></div>
+                                <input type="hidden" name="primary_estimation_form" value="True">
+                            </nav>
+                        </div>
+                    </form>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/settings">
+                        <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+                        My Settings
+                    </a>
+                    <!--
+                    <div class="sb-sidenav-menu-heading">API Connect</div>
+                    <a class="nav-link" href="http://www.bookbreakers.us:8080/portals/api-keys">
+                        <div class="sb-nav-link-icon"><i class="fas fa-key"></i></div>
+                        API Keys
+                    </a>-->
+                    
+                    
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                theodoreburt@gmail.com
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        toggleAdminPanel(true)
+    })
+</script>
+
+
+
+<div id="page-content-wrapper">
+    <div style="min-height:75vh">
+
+<link rel="stylesheet" type="text/css" href="http://www.bookbreakers.us:8080/static-main/css/optional/accordion_table.css"><!-- you need to link style.css file to this page  --><center>
+<div class="row"><form method="post"><input type="hidden" name="csrfmiddlewaretoken" value="wHEkwjxSq76qFN0JIrA60O96wNDutsz9JvZ3tz8Sx1hviy0yADkqtEKD1PI7lFzR"><h1 class="p-4">Arbitrage Bets</h1></div></center>
+<div style="margin-top:0px">
+
+<table style="text-align:center" class="fold-table">
+    <thead >
+        <tr  class="head-1"><th class="text-center">&nbsp;&nbsp;Bet Type</th><th class="text-center">Sport</th><th class="text-center">League</th><th class="text-center">Teams</th><th class="text-center">Game Time</th></tr></thead><thead>
+
+    </thead>
+    <tbody class="table-striped " id="main-table"></tbody>
+
+</table>
+
+<div id="bet-block-insert" class="bet-block-insert box-hide"></div></div><!-- AJAX -->
+<script src="http://www.bookbreakers.us:8080/static-main/js/jquery-3.6.0.min.js"></script>
+<script src="http://www.bookbreakers.us:8080/static-main/js/BBMain.js"></script>
+
+<script id="arbs-main">
+
+
+var open_bets =  [];
+var user_sites =  [3, 4, 5, 6, 7, 8];
+var site_dic = {1: {'site_id': 1, 'site_name': 'Pinnacle', 'site_abbreviation': 'PN', 'locations': ['Offshore'], 'link': 'https://www.pinnacle.com/en/'}, 2: {'site_id': 2, 'site_name': 'MyBookie', 'site_abbreviation': 'MB', 'locations': ['Offshore'], 'link': 'https://engine.mybookie.ag/sports/home'}, 3: {'site_id': 3, 'site_name': 'Bovada', 'site_abbreviation': 'BV', 'locations': ['Offshore'], 'link': 'https://www.bovada.lv/'}, 4: {'site_id': 4, 'site_name': 'BetOnline', 'site_abbreviation': 'BO', 'locations': ['Offshore'], 'link': 'https://www.betonline.ag/'}, 5: {'site_id': 5, 'site_name': 'EveryGame', 'site_abbreviation': 'EG', 'locations': ['Offshore'], 'link': 'https://sports.everygame.eu'}, 6: {'site_id': 6, 'site_name': 'FanDuel', 'site_abbreviation': 'FD', 'locations': ['US'], 'link': 'https://sportsbook.fanduel.com/'}, 7: {'site_id': 7, 'site_name': 'DraftKings', 'site_abbreviation': 'DK', 'locations': ['US'], 'link': 'https://sportsbook.draftkings.com/featured'}, 8: {'site_id': 8, 'site_name': 'BetMGM', 'site_abbreviation': 'BM', 'locations': ['US'], 'link': 'https://sports.co.betmgm.com/en/sports'}, 9: {'site_id': 9, 'site_name': 'Caesars', 'site_abbreviation': 'CS', 'locations': ['US'], 'link': 'https://www.williamhill.com/us/co/bet/'}, 10: {'site_id': 10, 'site_name': 'Sugarhouse', 'site_abbreviation': 'SH', 'locations': ['US'], 'link': 'https://ct.playsugarhouse.com/?page=sportsbook&feed=featured#home'}, 11: {'site_id': 11, 'site_name': 'WynnBet', 'site_abbreviation': 'WB', 'locations': ['US'], 'link': 'https://co.wynnbet.com/sportsbook'}, 12: {'site_id': 12, 'site_name': 'BetFred', 'site_abbreviation': 'BF', 'locations': ['US'], 'link': 'https://co.betfredsports.com/sports/'}, 13: {'site_id': 13, 'site_name': 'PlayUp', 'site_abbreviation': 'PU', 'locations': ['US'], 'link': 'https://co.playupusa.com/en-us/home'}, 14: {'site_id': 14, 'site_name': 'SuperBook', 'site_abbreviation': 'SB', 'locations': ['US'], 'link': 'https://co.superbook.com/sports'}, 15: {'site_id': 15, 'site_name': 'PointsBet', 'site_abbreviation': 'PB', 'locations': ['US'], 'link': 'https://co.pointsbet.com/'}, 16: {'site_id': 16, 'site_name': 'Betway', 'site_abbreviation': 'BW', 'locations': ['US'], 'link': 'https://co.betway.com/'}, 17: {'site_id': 17, 'site_name': 'FoxBet', 'site_abbreviation': 'FB', 'locations': ['US'], 'link': 'https://co.foxbet.com/#/'}, 18: {'site_id': 18, 'site_name': 'Barstool', 'site_abbreviation': 'BS', 'locations': ['US'], 'link': 'https://www.barstoolsportsbook.com'}, 19: {'site_id': 19, 'site_name': 'SIBook', 'site_abbreviation': 'SI', 'locations': ['US'], 'link': 'https://www.sisportsbook.com'}, 20: {'site_id': 20, 'site_name': 'BallyBet', 'site_abbreviation': 'BB', 'locations': ['US'], 'link': 'https://co.ballybet.com/sports/home.sbk'}};
+var user_sites_names = [];
+user_sites.forEach(site_id => {
+    user_sites_names.push(site_dic[site_id]['site_name']);
+});
+
+
+var site_headers = '';
+const odds_type = 'Am'.toLowerCase()+'_odds';
+
+// CREATE TABLE
+function createMainTable(){
+    document.getElementById('main-table').innerHTML = "";
+    const league = findGetParameter('league');
+    sendHttpRequest('POST',`http://www.bookbreakers.us:8080/api-user`,{"data":"arb_low_hold"}).then(response => {
+        var startTime = performance.now()
+        // CREATE ROWS
+        for (const [bet_id, bet_data] of Object.entries(response)) {
+            var game_data = bet_data['game_data']
+            //console.log(game_id, game_data);
+            var game_utc_date_time = Date.parse(`${game_data['game_time']}+0000`);
+            var game_local_date_time = new Date(game_utc_date_time)
+            var categories_html = '';
+            var sport = game_data['sport_name'];
+            var cur_page = window.location.href.split("/")
+            
+            var all_bets_by_id = bet_data['alt_arb'];
+            
+            var user_bets_by_id = [];
+            for (var i = 0; i < all_bets_by_id.length; i++){
+                var arb = all_bets_by_id[i];
+                if(user_sites_names.includes(arb['site_1']) && user_sites_names.includes(arb['site_2'])){
+                    user_bets_by_id.push(arb);
+                }
+            };
+            console.log(user_bets_by_id)
+            user_bets_by_id.sort(function(a, b){return b['value']-a['value']}); // Descending order b-a
+            if (user_bets_by_id.length > 0){
+                alt_arbs = ``;
+                for (var i = 0; i < user_bets_by_id.length; i++) {
+                    var arb = user_bets_by_id[i];
+                    if (arb['outcome_1'] == 'Away'){var outcome_1 = `${arb['outcome_1']} ${-bet_data['tag_info']['line']}`;}
+                    else{var outcome_1 = `${arb['outcome_1']} ${bet_data['tag_info']['line']}`;}
+
+                    if (arb['outcome_2'] == 'Away'){var outcome_2 = `${arb['outcome_2']} ${-bet_data['tag_info']['line']}`;}
+                    else{var outcome_2 = `${arb['outcome_2']} ${bet_data['tag_info']['line']}`;}
+
+                    
+                    value = parseFloat(100.0*(arb['value']-1)).toFixed(2);
+                    alt_arbs += `   
+                    
+                    <tr  >
+                        <td class="colBk">${value}%</td>
+                        <td class="tdBorBottom" >
+                            <table class="text-center"">
+                                <tr ><td class="FtrBk" >${outcome_1}</td></tr><tr ><td>${outcome_2}</td></tr>
+                            </table>
+                        </td>
+
+
+                        <td class="tdBorBottom" ><table class="text-center"><tr  ><td class="FtrBk">${arb['site_1']}</td></tr><tr ><td>${arb['site_2']}</td></tr>
+                            </table>
+                        </td>
+                        
+                        <td class="tdBorBottom"><table class="text-center" ><tr  ><td class="FtrBk">${bet_data['outcomes'][arb['oid_1']][arb['site_1']][odds_type]}</td></tr><tr><td>${bet_data['outcomes'][arb['oid_2']][arb['site_2']][odds_type]}</td></tr>
+                            </table>
+                        </td>
+                        
+                    </tr>`;
+
+                };
+                
+
+                document.getElementById('main-table').innerHTML += `
+
+                
+<tbody id="${bet_id}"><tr class="text-white subRowBk" ><td>&nbsp;&nbsp;&nbsp;${bet_data['tag_info']['bet_desc']}</td><td>${game_data['sport_name']}</td><td>${game_data['league_name']}</td><td>${game_data['away_team_name']} @ ${game_data['home_team_name']}</td><td>${game_local_date_time.toLocaleDateString('en-us', {weekday:"short", month:"short", day:"numeric"})} @ ${game_local_date_time.toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}</td></tr>
+
+    <tr>
+        <td>
+            <table class="tbborder">
+                <tbody>
+                    <tr>
+                        <td>
+                            ${alt_arbs} 
+                        </td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </td>
+    </tr>
+       
+</tbody>`;
+    
+            };
+        };
+
+
+        var endTime = performance.now()
+        console.log(`Call to took ${endTime - startTime} milliseconds`)
+
+    });
+};
+
+createMainTable()
+
+
+</script>
+
+
+    </div>
+
+
+ <!-- Footer-->
+ <footer class="py-5 bg-black">
+    <div class="container px-5"><p class="m-0 text-center text-black small">Copyright &copy; Butterfly Effect Data LLC 2021</p></div>
+</footer>
+
+<script src="http://www.bookbreakers.us:8080/static-main/js/bootstrap.bundle.min.js"></script>
+<script src="http://www.bookbreakers.us:8080/static-main/js/bootstrap-select.min.js"></script>
+
+</div>
+
+
+
+
+
+<script src="http://www.bookbreakers.us:8080/static-main/js/optional/admin-panel.js"></script>
+<script src="http://www.bookbreakers.us:8080/static-main/js/bootstrap5/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>-->
+    
+<script src="http://www.bookbreakers.us:8080/static-main/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    var csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
+    checkScreenDims()
+    function checkScreenDims(){
+        var width = window.screen.width;
+        var height = window.screen.height;
+        var ratio = window.devicePixelRatio || 1
+        var exp_width = 1536;
+        var exp_height = 864;
+        if (width != exp_width || height != exp_height){
+            d = $.ajax({
+            type:'POST',
+            url:'/process-updates',
+            data:{
+                'csrfmiddlewaretoken':csrf,
+                'screen_width':width,
+                'screen_height':height,
+            },
+            success: (res) => {
+                console.log('window size updated')
+            },
+            error: (res)=>{console.log(res);}        
+            })}}
+    
+</script>
+
+</body>
+
+
+
+
+</html>
